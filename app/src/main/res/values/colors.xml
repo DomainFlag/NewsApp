@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="politics">#ecf0f1</color>
+    <color name="music">#e74c3c</color>
+    <color name="science">#e67e22</color>
+    <color name="culture">#f1c40f</color>
+    <color name="environment">#9b59b6</color>
+    <color name="social">#2ecc71</color>
+
+</resources>
