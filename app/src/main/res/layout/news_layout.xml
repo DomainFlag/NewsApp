@@ -1,83 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              xmlns:tools="http://schemas.android.com/tools">
+              android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/section_main"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/section_drawable"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitStart"
-            android:adjustViewBounds="true"
-            tools:src="@drawable/untitled"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/activity_margin_horizontal"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <View
-                android:id="@+id/section_label"
-                android:layout_width="15dp"
-                android:layout_height="30dp"
-                tools:background="#FFFFFF"/>
-
-            <TextView
-                android:id="@+id/section_label_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/label_size"
-                android:textStyle="bold"
-                android:textAllCaps="true"
-                android:layout_marginStart="@dimen/activity_margin_horizontal"
-                android:layout_marginLeft="@dimen/activity_margin_horizontal"
-                tools:text="POLITICS" />
-
-        </LinearLayout>
+        android:layout_height="60dp"
+        android:layout_margin="@dimen/activity_margin_vertical"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/section_drawable"
-            android:layout_margin="@dimen/activity_margin_vertical"
-            android:textColor="#FFFFFF"
-            android:textSize="@dimen/header_size"
-            tools:text="North Korea tourism: US to ban Americans from visiting"/>
+            tools:text="Text 1"/>
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            tools:text="POLITICS"/>
 
-    <TextView
-        android:id="@+id/brief_title_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin_horizontal"
-        android:textSize="@dimen/header_size"
-        tools:text="Text 1"/>
-
-    <TextView
-        android:id="@+id/brief_title_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin_horizontal"
-        android:textSize="@dimen/header_size"
-        tools:text="Text 2"/>
-
-    <TextView
-        android:id="@+id/brief_title_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_margin_horizontal"
-        android:textSize="@dimen/header_size"
-        tools:text="Text 3"/>
+    </LinearLayout>
 
 </LinearLayout>

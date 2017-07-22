@@ -12,12 +12,10 @@ import java.util.ArrayList;
 public class NewsLoader extends AsyncTaskLoader<ArrayList<News>>{
 
     private String url;
-    private ArrayList<SectionDefault> sections;
 
-    public NewsLoader(String urlString, Context context, ArrayList<SectionDefault> arrayList) {
+    public NewsLoader(String urlString, Context context) {
         super(context);
         url = urlString;
-        sections = arrayList;
     }
 
     @Override
@@ -27,6 +25,6 @@ public class NewsLoader extends AsyncTaskLoader<ArrayList<News>>{
 
     @Override
     public ArrayList<News> loadInBackground() {
-        return QueryUtils.fetchNewsData(url, sections);
+        return QueryUtils.fetchNewsData(url);
     }
 }

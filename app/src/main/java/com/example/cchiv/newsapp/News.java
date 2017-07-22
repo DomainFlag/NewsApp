@@ -1,26 +1,30 @@
 package com.example.cchiv.newsapp;
 
-import java.util.ArrayList;
-
 /**
  * Created by Cchiv on 20/07/2017.
  */
 
 public class News {
 
-    private Section section;
-    private ArrayList<Article> articles;
+    private String title;
+    private String section;
+    private String url;
 
-    public News(Section fetchedSection, ArrayList<Article> fetchedArticles) {
-        section = fetchedSection;
-        articles = fetchedArticles;
+    public News(String string1, String string2, String string3) {
+        title = string1;
+        section = string2;
+        url = string3;
     }
 
-    public Section getSection() {
+    public String getTitle() {
+        return title;
+    }
+
+    public String getSection() {
         return section;
     }
 
-    public ArrayList<Article> getArticles() {
-        return articles;
+    public String getUrl() {
+        return url;
     }
 }

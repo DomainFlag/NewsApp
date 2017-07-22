@@ -1,6 +1,5 @@
 package com.example.cchiv.newsapp;
 
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -27,26 +26,13 @@ public class QueryUtils {
 
     public QueryUtils() {}
 
-    public static ArrayList<News> fetchNewsData(String urlString, ArrayList<SectionDefault> sections) {
+    public static ArrayList<News> fetchNewsData(String urlString) {
 
-        String[] strings = urlString.split("untitled");
+        URL url = parseURLString(urlString);
 
-        ArrayList<News> arrayList = new ArrayList<>();
+        String output = fetchData(url);
 
-        for(int i = 0; i < sections.size(); i++) {
-            String newURLString = strings[0] + sections.get(i).getName() + strings[1];
-
-            URL url = parseURLString(newURLString);
-
-            String output = fetchData(url);
-
-            News news = parseFetchedData(output, sections.get(i));
-
-            if(news != null)
-                arrayList.add(news);
-        }
-
-        return arrayList;
+        return parseFetchedData(output);
     }
 
     private static URL parseURLString(String urlString) {
@@ -60,7 +46,7 @@ public class QueryUtils {
     }
 
     private static String fetchData(URL url) {
-        HttpURLConnection httpURLConnection = null;
+        HttpURLConnection httpURLConnection;
         StringBuilder output = new StringBuilder();
 
         try {
@@ -86,8 +72,8 @@ public class QueryUtils {
         return output.toString();
     }
 
-    private static News parseFetchedData(String output, SectionDefault sectionDefault) {
-        News news = null;
+    private static ArrayList<News> parseFetchedData(String output) {
+        ArrayList<News> arrayList = new ArrayList<>();
 
         try {
             JSONObject jsonObject = new JSONObject(output);
@@ -98,52 +84,24 @@ public class QueryUtils {
                 return null;
             JSONArray jsonArray = jsonObject1.getJSONArray("results");
 
-            JSONObject jsonObjectMain = jsonArray.getJSONObject(0);
-            String stringMainTitle = "NaN";
-            if(jsonObjectMain.has("webTitle"))
-                stringMainTitle = jsonObjectMain.getString("webTitle");
-            String stringMainUrl = null;
-            if(jsonObjectMain.has("webUrl"))
-                stringMainUrl = jsonObjectMain.getString("webUrl");
-            Article articleMain = new Article(stringMainTitle, stringMainUrl);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObjectMain = jsonArray.getJSONObject(i);
+                String stringMainTitle = "NaN";
+                if (jsonObjectMain.has("webTitle"))
+                    stringMainTitle = jsonObjectMain.getString("webTitle");
+                String section = "NaN";
+                if (jsonObjectMain.has("sectionName"))
+                    section = jsonObjectMain.getString("sectionName");
+                String stringMainUrl = null;
+                if (jsonObjectMain.has("webUrl"))
+                    stringMainUrl = jsonObjectMain.getString("webUrl");
 
-            if(!jsonObjectMain.has("fields"))
-                return  null;
-            JSONObject jsonObjectMainFields = jsonObjectMain.getJSONObject("fields");
-            if(!jsonObjectMainFields.has("thumbnail"))
-                return null;
-            String thumbnailURL = jsonObjectMainFields.getString("thumbnail");
-            Drawable drawable = getURLDrawable(thumbnailURL, 0);
-            Section section = new Section(articleMain, sectionDefault, drawable);
-
-            ArrayList<Article> articles = new ArrayList<>();
-
-            for(int i = 1; i < jsonArray.length() && i < 4; i++) {
-                JSONObject jsonObjectSecondary = jsonArray.getJSONObject(i);
-                String stringSecondaryTitle = "NaN";
-                if(jsonObjectSecondary.has("webTitle"))
-                    stringSecondaryTitle = jsonObjectSecondary.getString("webTitle");
-                String stringSecondaryUrl = "NaN";
-                stringSecondaryUrl = jsonObjectSecondary.getString("webUrl");
-                articles.add(new Article(stringSecondaryTitle, stringSecondaryUrl));
+                arrayList.add(new News(stringMainTitle, section, stringMainUrl));
             }
-            news = new News(section ,articles);
-
         } catch (JSONException e) {
             Log.v(context, e.toString());
         }
 
-        return news;
-    }
-
-    private static Drawable getURLDrawable(String url, int index) {
-        Drawable drawable = null;
-        try {
-            InputStream urlContent = (InputStream) new URL(url).getContent();
-            drawable = Drawable.createFromStream(urlContent, "image" + index);
-        } catch (IOException e) {
-            Log.v(context, e.toString());
-        }
-        return drawable;
+        return arrayList;
     }
 }
