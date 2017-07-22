@@ -77,10 +77,13 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<A
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(data.get(position).getUrl()));
+                        if(data.get(position).getUrl() != null) {
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(data.get(position).getUrl()));
 
-                        startActivity(intent);
+                            startActivity(intent);
+                        }
+
                     }
                 });
             }
